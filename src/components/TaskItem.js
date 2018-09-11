@@ -12,12 +12,12 @@ class TaskItem extends Component {
         this.props.onCloseForm();
     }
     onUpdate = ()=> {        
-        this.props.onEditTask(this.props.item);
-        this.props.onOpenForm();
-       
+        this.props.onOpenForm();          
+        this.props.onEditTask(this.props.item);         
     }
     render(){
         var {item,index} = this.props;
+        console.log("items",item);
         return(
             <tr>
                 <td>{index+1}</td>
@@ -44,7 +44,6 @@ class TaskItem extends Component {
 }
 const mapStateToProps = (state)=>{
     return {
-        
     }
 }
 

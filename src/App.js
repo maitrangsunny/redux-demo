@@ -47,20 +47,18 @@ class App extends Component {
 		localStorage.setItem('tasks',JSON.stringify(tasks));
 	}
 
-	onAddSub=()=>{
-		// if(this.state.isDisplayForm && this.state.taskEditing !== null){
-		// 	this.setState({
-		// 		isDisplayForm : true,
-		// 		taskEditing: null
-		// 	});
-		// }else {
-		// 	this.setState({
-		// 		isDisplayForm : !this.state.isDisplayForm,
-		// 		taskEditing: null
-		// 	});
-		// }
-		this.props.onToggleForm();
-		
+	onToggleForm=()=>{
+		var {itemEditing} = this.props;
+		if(itemEditing && itemEditing.id !== '') {
+			this.props.onOpenForm();			
+		}else {
+			this.props.onToggleForm();
+		}
+		this.props.onClearTask({
+			id: '',
+			name: '',
+			status: false
+		})
 	}
 
 	onShowForm=()=> {
@@ -118,7 +116,6 @@ class App extends Component {
   render() {
 	var {filter, keyWord, sortBy, sortValue} = this.state;//var tasks = this.state.tasks;
 	var {isDisplayForm} = this.props;
-	console.log(isDisplayForm);
 	// if(filter) {
 	// 	if(filter.name){
 	// 		// tasks = tasks.filter((task)=>{
@@ -153,9 +150,6 @@ class App extends Component {
 	// 		else return 0;
 	// 	});
 	// }
-	
-	var elmTaskForm = isDisplayForm?<TaskForm 
-										onSubmit = {this.onSubmit}/>:'';	
     return (
       <div className="App App--modifier">
           <div className="container">
@@ -164,11 +158,11 @@ class App extends Component {
 				</div><br/><br/>
 				<div className="row">
 					<div className={isDisplayForm?'col-xs-4 col-sm-4 col-md-4 col-lg-4':''}>
-					{elmTaskForm}
+						<TaskForm/>
 					</div>
 					<div className={isDisplayForm?'col-xs-8 col-sm-8 col-md-8 col-lg-8':'col-xs-12 col-sm-12 col-md-12 col-lg-12'}>
 						<div className="distance">
-							<button type="button" className="btn btn-primary" onClick={this.onAddSub}>
+							<button type="button" className="btn btn-primary" onClick={this.onToggleForm}>
 							<span className="fa fa-plus mr-5"></span>Add Task</button>
 						</div>
 						<div className="distance">
@@ -193,7 +187,8 @@ class App extends Component {
 // connect to store get props
 const mapStateToProps = (state) => {
 	return {
-		isDisplayForm : state.isDisplayForm
+		isDisplayForm : state.isDisplayForm,
+		itemEditing : state.itemEditing
 	}
 }
 const mapDispatchToProps = (dispatch,props)=> {
@@ -203,7 +198,11 @@ const mapDispatchToProps = (dispatch,props)=> {
 		},
 		onOpenForm : () => {
 			dispatch(actions.openForm());
-		}		
+		},
+		onClearTask : (task) => {
+			dispatch(actions.editTask(task));
+
+		}
 	}
 }
 

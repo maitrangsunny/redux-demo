@@ -34,10 +34,12 @@ var myReducer = (state= initialState, action) => {
             if(!task.id){
                 task.id = generateID();
                 state.push(task);
-            }else {
+            }
+            else {
                 index = findIndex(state,task.id);
                 state[index]=task;
             }
+          
             localStorage.setItem('tasks',JSON.stringify(state));
             return [...state];
         case types.UPDATE_STATUS_TASK:       

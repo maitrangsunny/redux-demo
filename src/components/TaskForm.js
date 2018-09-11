@@ -14,7 +14,8 @@ class TaskForm extends Component {
         this.props.onCloseForm();
     }
     componentWillMount() {
-        if(this.props.itemEditing){
+        console.log('componentWillMount');
+        if(this.props.itemEditing && this.props.itemEditing.id !== null){
             this.setState({
                 id:this.props.itemEditing.id,
                 name: this.props.itemEditing.name,
@@ -25,7 +26,6 @@ class TaskForm extends Component {
         }
     }
     componentWillReceiveProps(nextProps){
-        console.log('nextProps',nextProps);
         if(nextProps && nextProps.itemEditing) {
             //change add to update
             this.setState({
@@ -33,13 +33,9 @@ class TaskForm extends Component {
                 name: nextProps.itemEditing.name,
                 status: nextProps.itemEditing.status
             });
-        }else if(nextProps && nextProps.itemEditing === null){
+        }else{
             //change update to add == reset
-            this.setState({
-                id: '',
-                name: '',
-                status: false
-            })
+           this.onClear();
         }
     }
 
@@ -75,11 +71,11 @@ class TaskForm extends Component {
 
     render(){
         var {id} = this.state;
-        if(!this.props.isDisplayForm) return '';
+        if(!this.props.isDisplayForm) return null;
         return(            
             <div className="panel panel-warning">
                 <div className="panel-heading">
-                    <h3 className="panel-title">{id !== ''?'Update task':'Add new task'}
+                    <h3 className="panel-title">{!id?'Add new task':'Update task'}
                     <span className="fa fa-times text-right sym__close"
                     onClick={this.onCloseForm}></span>
                     </h3> 
