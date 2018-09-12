@@ -11,7 +11,6 @@ class App extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			taskEditing: null,
 			keyWord: '', 
 			sortBy: 'name',
 			sortValue: 1
