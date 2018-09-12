@@ -12,10 +12,6 @@ class App extends Component {
 		super(props);
 		this.state = {
 			taskEditing: null,
-			filter: {
-				name: '',
-				status: -1
-			},
 			keyWord: '', 
 			sortBy: 'name',
 			sortValue: 1
@@ -64,42 +60,6 @@ class App extends Component {
 	onShowForm=()=> {
 		this.props.onOpenForm();
 	}
-	onSubmit = (data) =>{
-		//for update and add
-		var {tasks} = this.state;  // == tasks = this.state.tasks
-		if(data.id === ''){
-			//add
-			data.id = this.generateID();
-			tasks.push(data);
-		}else {
-			var index = this.findIndex(data.id);
-			tasks[index] = data;
-		}
-		this.setState({
-			tasks : tasks,
-			taskEditing: null
-		});
-		localStorage.setItem('tasks',JSON.stringify(tasks));
-	}
-	onUpdate = (id) => {
-		var {tasks} = this.state;
-		var index = this.findIndex(id);
-		var edit = tasks[index];
-		this.setState({
-			taskEditing: edit
-		});
-		this.onShowForm();
-		
-	}
-	onFilter = (filName, filStatus) => {
-		filStatus = parseInt(filStatus);
-		this.setState({
-			filter: {
-				name: filName.toLowerCase(),
-				status: filStatus
-			}
-		})
-	}
 	onSearch = (keyWord)=> {
 		this.setState({
 			keyWord: keyWord
@@ -114,42 +74,8 @@ class App extends Component {
 		console.log(this.state);
 	}
   render() {
-	var {filter, keyWord, sortBy, sortValue} = this.state;//var tasks = this.state.tasks;
+	var {keyWord, sortBy, sortValue} = this.state;//var tasks = this.state.tasks;
 	var {isDisplayForm} = this.props;
-	// if(filter) {
-	// 	if(filter.name){
-	// 		// tasks = tasks.filter((task)=>{
-	// 		// 	return task.name.toLowerCase().indexOf(filter.name) !== -1
-	// 		// });
-	// 		tasks = _.filter(tasks, function(task) { return task.name.toLowerCase().indexOf(filter.name) !== -1 });
-	// 	}
-	// 	tasks = tasks.filter((task)=>{
-	// 		if(filter.status === -1){
-	// 			return task;
-	// 		}else {
-	// 			return task.status === (filter.status === 1? true: false)
-	// 		}
-	// 	});
-	// }
-	// if(keyWord) {
-	// 	tasks = tasks.filter((task)=>{
-	// 		console.log(task.name.toLowerCase().indexOf(keyWord) !== -1);
-	// 			return task.name.toLowerCase().indexOf(keyWord) !== -1
-	// 		});
-	// }
-	// if(sortBy === 'name'){
-	// 	tasks.sort((a,b)=>{
-	// 		if(a.name > b.name) return sortValue;
-	// 		else if(a.name < b.name) return -sortValue;
-	// 		else return 0;
-	// 	});
-	// }else {
-	// 	tasks.sort((a,b)=> {
-	// 		if(a.status > b.status) return -sortValue;
-	// 		else if(a.status < b.status) return sortValue;
-	// 		else return 0;
-	// 	});
-	// }
     return (
       <div className="App App--modifier">
           <div className="container">
@@ -173,9 +99,7 @@ class App extends Component {
 								onSort = {this.onSort}
 								sortBy = {sortBy}
 								sortValue= {sortValue}/>
-						<TaskList  
-								onUpdate = {this.onUpdate}
-								onFilter = {this.onFilter}/>
+						<TaskList />
 					</div>
 				</div>        
           </div>
