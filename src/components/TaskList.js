@@ -45,7 +45,6 @@ class TaskList extends Component {
             }
         });
         tasks = _.filter(tasks, function(task) { return task.name.toLowerCase().indexOf(keyword.toLowerCase()) !== -1});
-
         var elmTasks = '';
         elmTasks= tasks.map((item,index)=>{
             return <TaskItem 
@@ -82,7 +81,6 @@ class TaskList extends Component {
                    
                 </tbody>
             </table>
-            
         );
     }
 }
@@ -90,13 +88,17 @@ const mapStateToProps = (state)=>{
     return {
         tasks: state.tasks,  //get from index of reducers
         filterTable : state.filterTable,
-        keyword : state.search
+        keyword : state.search,
+        
     }
 };
 const mapDispatchToProps = (dispatch,props)=> {
     return {
         onFilterTable : (filter) => {
             dispatch(actions.filterTask(filter))
+        },
+        onSort : (sort) => {
+            dispatch(actions.sort);
         }
     }
 }

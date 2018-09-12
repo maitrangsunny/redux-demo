@@ -1,10 +1,13 @@
 import * as types from '../constants/ActionTypes';
 
-const initialState = '';
+const initialState = {
+    sortBy : '',
+    sortValue: 1 // 1: up, -1: down
+}; 
 var myReducer = (state = initialState, action) => {
     switch(action.type){
-        case types.SEARCH:
-            return action.keyword;
+        case types.SORT:
+            return action.sortTask;
         default:
             return state;
     }

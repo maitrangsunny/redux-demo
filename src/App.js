@@ -11,7 +11,6 @@ class App extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			keyWord: '', 
 			sortBy: 'name',
 			sortValue: 1
 		}
@@ -59,12 +58,6 @@ class App extends Component {
 	onShowForm=()=> {
 		this.props.onOpenForm();
 	}
-	onSearch = (keyWord)=> {
-		this.setState({
-			keyWord: keyWord
-		})
-		console.log(keyWord);
-	}
 	onSort = (sortBy, sortValue) => {
 		this.setState({
 			sortBy: sortBy,
@@ -73,7 +66,7 @@ class App extends Component {
 		console.log(this.state);
 	}
   render() {
-	var {keyWord, sortBy, sortValue} = this.state;//var tasks = this.state.tasks;
+	var {sortBy, sortValue} = this.state;//var tasks = this.state.tasks;
 	var {isDisplayForm} = this.props;
     return (
       <div className="App App--modifier">
@@ -94,10 +87,7 @@ class App extends Component {
 							<button type="button" className="btn btn-danger" onClick={this.onGenerateData}>
 							<span className="fa fa-plus mr-5"></span>Generate data</button>
 						</div>
-						<Controls onSearch = {this.onSearch}
-								onSort = {this.onSort}
-								sortBy = {sortBy}
-								sortValue= {sortValue}/>
+						<Controls/>
 						<TaskList />
 					</div>
 				</div>        
