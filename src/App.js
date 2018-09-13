@@ -10,10 +10,6 @@ import * as actions from './actions/index';
 class App extends Component {
 	constructor(props) {
 		super(props);
-		this.state = {
-			sortBy: 'name',
-			sortValue: 1
-		}
 	}
 	onGenerateData=()=>{
 		var tasks = [
@@ -58,43 +54,35 @@ class App extends Component {
 	onShowForm=()=> {
 		this.props.onOpenForm();
 	}
-	onSort = (sortBy, sortValue) => {
-		this.setState({
-			sortBy: sortBy,
-			sortValue: sortValue
-		});
-		console.log(this.state);
-	}
-  render() {
-	var {sortBy, sortValue} = this.state;//var tasks = this.state.tasks;
-	var {isDisplayForm} = this.props;
-    return (
-      <div className="App App--modifier">
-          <div className="container">
-				<div className="row">
-					<h3 className="heading__title">Task Management</h3>
-				</div><br/><br/>
-				<div className="row">
-					<div className={isDisplayForm?'col-xs-4 col-sm-4 col-md-4 col-lg-4':''}>
-						<TaskForm/>
-					</div>
-					<div className={isDisplayForm?'col-xs-8 col-sm-8 col-md-8 col-lg-8':'col-xs-12 col-sm-12 col-md-12 col-lg-12'}>
-						<div className="distance">
-							<button type="button" className="btn btn-primary" onClick={this.onToggleForm}>
-							<span className="fa fa-plus mr-5"></span>Add Task</button>
+  	render() {
+		var {isDisplayForm} = this.props;
+		return (
+		<div className="App App--modifier">
+			<div className="container">
+					<div className="row">
+						<h3 className="heading__title">Task Management</h3>
+					</div><br/><br/>
+					<div className="row">
+						<div className={isDisplayForm?'col-xs-4 col-sm-4 col-md-4 col-lg-4':''}>
+							<TaskForm/>
 						</div>
-						<div className="distance">
-							<button type="button" className="btn btn-danger" onClick={this.onGenerateData}>
-							<span className="fa fa-plus mr-5"></span>Generate data</button>
+						<div className={isDisplayForm?'col-xs-8 col-sm-8 col-md-8 col-lg-8':'col-xs-12 col-sm-12 col-md-12 col-lg-12'}>
+							<div className="distance">
+								<button type="button" className="btn btn-primary" onClick={this.onToggleForm}>
+								<span className="fa fa-plus mr-5"></span>Add Task</button>
+							</div>
+							<div className="distance">
+								<button type="button" className="btn btn-danger" onClick={this.onGenerateData}>
+								<span className="fa fa-plus mr-5"></span>Generate data</button>
+							</div>
+							<Controls />
+							<TaskList />
 						</div>
-						<Controls />
-						<TaskList />
-					</div>
-				</div>        
-          </div>
-      </div>
-    );
-  }
+					</div>        
+			</div>
+		</div>
+		);
+  	}
 }
 
 // connect to store get props

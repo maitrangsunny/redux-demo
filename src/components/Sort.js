@@ -3,14 +3,13 @@ import {connect} from 'react-redux';
 import * as actions from '../actions/index';
 
 class Sort extends Component {   
-    onClick = (by,value) =>{
+    onClick = (sortBy,sortValue) =>{
         this.props.onSort({
             by: sortBy,
             value: sortValue
         })
     }
     render(){       
-        console.log(this.props.sort);
         return(
             <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                 <div className="dropdown">                        
@@ -19,22 +18,22 @@ class Sort extends Component {
                     </button>
                     <ul className="dropdown-menu" aria-labelledby="dropdownMenu1">
                         <li onClick={()=>this.onClick('name',1)}>
-                            <a role="button" className={(this.props.sortBy === 'name' && this.props.sortValue===1)?'sort__selected':''}> 
+                            <a role="button" className={(this.props.sort.by === 'name' && this.props.sort.value===1)?'sort__selected':''}> 
                                 <span className="fa fa-sort-alpha-up mr-5">
                                 </span>Name A-Z
                             </a>
                         </li>
                         <li onClick = {()=>{this.onClick('name',-1)}}>
-                            <a role="button" className={(this.props.sortBy === 'name' && this.props.sortValue===-1)?'sort__selected':''}>
+                            <a role="button" className={(this.props.sort.by === 'name' && this.props.sort.value===-1)?'sort__selected':''}>
                                 <span className="fa fa-sort-alpha-down mr-5">
                                 </span>Name Z-A
                             </a>
                         </li>
                         <li role="separator" className="divider"></li>
-                        <li onClick = {()=>this.onClick('status',1)}><a role="button" className={(this.props.sortBy === 'status' && this.props.sortValue===1)?'sort__selected':''}>
+                        <li onClick = {()=>this.onClick('status',1)}><a role="button" className={(this.props.sort.by === 'status' && this.props.sort.value===1)?'sort__selected':''}>
                         <span className="fa fa-eye mr-5"></span> Active
                         </a></li>
-                        <li onClick ={()=>this.onClick('status',-1)}><a role="button" className={(this.props.sortBy === 'status' && this.props.sortValue===-1)?'sort__selected':''}><span className="fa fa-eye-slash mr-5"></span>Hidden</a></li>
+                        <li onClick ={()=>this.onClick('status',-1)}><a role="button" className={(this.props.sort.by === 'status' && this.props.sort.value===-1)?'sort__selected':''}><span className="fa fa-eye-slash mr-5"></span>Hidden</a></li>
                     </ul>
                 </div>
             </div>  
