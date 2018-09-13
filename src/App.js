@@ -87,7 +87,7 @@ class App extends Component {
 							<button type="button" className="btn btn-danger" onClick={this.onGenerateData}>
 							<span className="fa fa-plus mr-5"></span>Generate data</button>
 						</div>
-						<Controls/>
+						<Controls />
 						<TaskList />
 					</div>
 				</div>        

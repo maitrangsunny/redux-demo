@@ -89,16 +89,12 @@ const mapStateToProps = (state)=>{
         tasks: state.tasks,  //get from index of reducers
         filterTable : state.filterTable,
         keyword : state.search,
-        
     }
 };
 const mapDispatchToProps = (dispatch,props)=> {
     return {
         onFilterTable : (filter) => {
             dispatch(actions.filterTask(filter))
-        },
-        onSort : (sort) => {
-            dispatch(actions.sort);
         }
     }
 }
